@@ -1,55 +1,437 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101827"><title>LogiRide - Voyageurs</title>
 <link rel="apple-touch-icon" href="logo.png">
- <meta name="description" content="Consultez les horaires théoriques des réseaux de Val-sur-Rive Mobilités."><link rel="icon" type="image/png" href="logo.png">
+<meta name="description" content="Consultez les horaires théoriques des réseaux de Val-sur-Rive Mobilités."><link rel="icon" type="image/png" href="logo.png">
 <style>
-:root{color-scheme:dark;--bg:#0b1220;--panel:rgba(12,23,43,.88);--panel2:rgba(25,38,58,.92);--line:#2b3a50;--text:#f4f7fb;--muted:#a6b4c7;--accent:#f4b400;--blue:#4f8cff;--green:#35c98a}*{box-sizing:border-box}body{margin:0;background:linear-gradient(115deg,#061a3b 0%,#101d46 48%,#2e1a47 100%) fixed;color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}a{color:inherit}.wrap{width:min(1050px,calc(100% - 32px));margin:auto}.top{padding:26px 0 18px;border-bottom:1px solid #26354a}.brand{display:flex;align-items:center;gap:13px}.logo{display:block;width:190px;height:auto;max-height:112px;object-fit:contain;flex:0 0 auto}.brand b{font-size:20px;letter-spacing:.2px}.brand small{display:block;color:var(--muted);font-size:12px}.hero{padding:36px 0 24px}.eyebrow{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:1.5px;font-size:11px}.hero h1{font-size:clamp(29px,5vw,44px);line-height:1.08;margin:9px 0 10px}.hero p{color:var(--muted);margin:0;max-width:650px}.searchbox{background:var(--panel);border:1px solid var(--line);padding:18px;border-radius:18px;box-shadow:0 16px 45px #0003}.searchrow{display:flex;gap:10px;align-items:center}.searchrow input{flex:1;min-width:0;background:#0b1423;border:1px solid #34445c;border-radius:11px;color:var(--text);font:inherit;padding:14px 15px;outline:none}.searchrow input:focus{border-color:var(--accent);box-shadow:0 0 0 3px #f4b40020}.filters{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.filters select,.filters button{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit}.filters button.active{border-color:var(--accent);color:var(--accent)}.hint{font-size:12px;color:var(--muted);margin:11px 0 0}.results{padding:22px 0 60px}.status{color:var(--muted);font-size:13px;margin:0 0 14px}.stopgroup{background:var(--panel);border:1px solid var(--line);border-radius:16px;margin:12px 0;overflow:hidden}.stophead{padding:15px 17px;background:linear-gradient(90deg,#1b2a40,#142136);display:flex;justify-content:space-between;gap:12px;align-items:center}.stophead h2{font-size:18px;margin:0}.stophead small{color:var(--muted)}.networks{display:flex;gap:6px;flex-wrap:wrap}.pill{font-size:11px;border:1px solid var(--line);border-radius:99px;padding:3px 8px;color:var(--muted)}.lineblock{padding:13px 17px;border-top:1px solid var(--line)}.linehead{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:9px}.linebadge{min-width:38px;text-align:center;border-radius:7px;padding:4px 8px;font-weight:900;color:#111;border:1px solid #ffffff30}.linehead b{font-size:14px}.direction{font-size:12px;color:var(--muted);margin:9px 0 5px}.times{display:flex;gap:7px;flex-wrap:wrap}.time{background:#0c1727;border:1px solid #2c4058;border-radius:8px;padding:7px 10px;font-weight:750;font-variant-numeric:tabular-nums}.time.next{border-color:#23885f;background:#123426;color:#9af0c7}.empty{background:var(--panel);border:1px dashed var(--line);padding:22px;border-radius:14px;color:var(--muted);text-align:center}.footer{border-top:1px solid #26354a;padding:20px 0 30px;color:var(--muted);font-size:12px}.loading{display:inline-block;width:14px;height:14px;border:2px solid #708198;border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;vertical-align:-2px;margin-right:7px}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:560px){.logo{width:150px}.hero{padding-top:26px}.searchbox{padding:13px}.searchrow{align-items:stretch;flex-direction:column}.searchrow input{width:100%}.stophead{align-items:flex-start;flex-direction:column}.time{padding:7px 8px}}
+:root{color-scheme:dark;--bg:#0b1220;--panel:rgba(12,23,43,.88);--panel2:rgba(25,38,58,.92);--line:#2b3a50;--text:#f4f7fb;--muted:#a6b4c7;--accent:#f4b400;--blue:#4f8cff;--green:#35c98a}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:linear-gradient(115deg,#061a3b 0%,#101d46 48%,#2e1a47 100%) fixed;color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:inherit}
+.wrap{width:min(1050px,calc(100% - 32px));margin:auto}
+.top{padding:26px 0 18px;border-bottom:1px solid #26354a}
+.top .wrap{position:relative}
+.brand{display:flex;align-items:center;gap:13px}
+.brand-link{display:flex;align-items:center;gap:13px;text-decoration:none;min-width:0}
+.logo{display:block;width:190px;height:auto;max-height:112px;object-fit:contain;flex:0 0 auto}
+.brand b{font-size:20px;letter-spacing:.2px}
+.brand small{display:block;color:var(--muted);font-size:12px}
+/* Menu hamburger */
+.burger{margin-left:auto;flex:0 0 auto;width:46px;height:46px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.burger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform .2s,opacity .2s}
+.burger[aria-expanded=true]{border-color:var(--accent)}
+.burger[aria-expanded=true] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded=true] span:nth-child(2){opacity:0}
+.burger[aria-expanded=true] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.menu{position:absolute;right:0;top:calc(100% + 10px);width:min(320px,calc(100vw - 32px));background:#0f1b30;border:1px solid var(--line);border-radius:16px;padding:8px;box-shadow:0 18px 50px #0007;z-index:50}
+.menu a{display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:10px;text-decoration:none;font-weight:650}
+.menu a:hover,.menu a:focus-visible{background:#1b2a40;outline:none}
+.menu a.on{background:#1b2a40;color:var(--accent)}
+.menu .sep{font-size:11px;text-transform:uppercase;letter-spacing:1.3px;color:var(--muted);padding:12px 13px 4px}
+/* Accueil */
+.hero{padding:36px 0 24px}
+.hero.small{padding:30px 0 18px}
+.eyebrow{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:1.5px;font-size:11px}
+.hero h1{font-size:clamp(29px,5vw,44px);line-height:1.08;margin:9px 0 10px}
+.hero p{color:var(--muted);margin:0;max-width:650px}
+.searchbox{background:var(--panel);border:1px solid var(--line);padding:18px;border-radius:18px;box-shadow:0 16px 45px #0003}
+.searchrow{display:flex;gap:10px;align-items:center}
+.searchrow input,.field input,.field select{flex:1;min-width:0;background:#0b1423;border:1px solid #34445c;border-radius:11px;color:var(--text);font:inherit;padding:14px 15px;outline:none;width:100%}
+.searchrow input:focus,.field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px #f4b40020}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.filters select,.filters button{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit}
+.hint{font-size:12px;color:var(--muted);margin:11px 0 0}
+.results{padding:22px 0 60px}
+.status{color:var(--muted);font-size:13px;margin:0 0 14px}
+/* Synthèse du réseau */
+.netcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;margin:0 0 16px;overflow:hidden}
+.nethead{padding:15px 17px;background:linear-gradient(90deg,#1b2a40,#142136);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.nethead h2{font-size:20px;margin:0}
+.nethead small{color:var(--muted);display:block}
+.linegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;padding:14px 17px}
+.lcard{display:flex;align-items:center;gap:12px;background:#0c1727;border:1px solid #2c4058;border-radius:12px;padding:11px 12px;text-decoration:none}
+.lcard:hover{border-color:var(--accent)}
+.lcard .t{min-width:0}
+.lcard .t b{display:block;font-size:14px;line-height:1.25}
+.chip{display:inline-block;margin-top:4px;font-size:11px;font-weight:700;border-radius:99px;padding:2px 9px;border:1px solid var(--line);color:var(--muted)}
+.chip.live{color:#9af0c7;border-color:#23885f;background:#123426}
+.chip.next{color:#b9d3ff;border-color:#2f5fb3;background:#10264a}
+.netfoot{padding:0 17px 14px;color:var(--muted);font-size:12px}
+.linebadge{min-width:38px;text-align:center;border-radius:7px;padding:4px 8px;font-weight:900;color:#111;border:1px solid #ffffff30;flex:0 0 auto}
+.pill{font-size:11px;border:1px solid var(--line);border-radius:99px;padding:3px 8px;color:var(--muted)}
+.networks{display:flex;gap:6px;flex-wrap:wrap}
+/* Résultats de recherche d'arrêt */
+.stopgroup{background:var(--panel);border:1px solid var(--line);border-radius:16px;margin:12px 0;overflow:hidden}
+.stophead{padding:15px 17px;background:linear-gradient(90deg,#1b2a40,#142136);display:flex;justify-content:space-between;gap:12px;align-items:center}
+.stophead h2{font-size:18px;margin:0}
+.stophead small{color:var(--muted)}
+.lineblock{padding:13px 17px;border-top:1px solid var(--line)}
+.linehead{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:9px}
+.linehead b{font-size:14px}
+.direction{font-size:12px;color:var(--muted);margin:9px 0 5px}
+.times{display:flex;gap:7px;flex-wrap:wrap}
+.time{background:#0c1727;border:1px solid #2c4058;border-radius:8px;padding:7px 10px;font-weight:750;font-variant-numeric:tabular-nums}
+.time.next{border-color:#23885f;background:#123426;color:#9af0c7}
+.empty{background:var(--panel);border:1px dashed var(--line);padding:22px;border-radius:14px;color:var(--muted);text-align:center}
+/* Itinéraires */
+.tripgrid{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:end}
+.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 5px;font-weight:650}
+.tripgrid2{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:10px;align-items:end;margin-top:12px}
+.swap{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:11px;width:46px;height:48px;font-size:18px;cursor:pointer}
+.go{background:var(--accent);color:#101827;border:0;border-radius:11px;padding:0 22px;height:48px;font:inherit;font-weight:850;cursor:pointer}
+.trip{background:var(--panel);border:1px solid var(--line);border-radius:16px;margin:12px 0;overflow:hidden}
+.triphead{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:14px 17px;background:linear-gradient(90deg,#1b2a40,#142136)}
+.triphead b{font-size:20px;font-variant-numeric:tabular-nums}
+.leg{display:flex;gap:12px;padding:13px 17px;border-top:1px solid var(--line);align-items:flex-start}
+.leg small{color:var(--muted)}
+.xfer{padding:8px 17px;border-top:1px dashed var(--line);color:var(--accent);font-size:13px;background:#101b2e}
+.err{color:#ffb4b4;margin:12px 0 0;font-size:14px}
+/* Lignes du réseau */
+details.line{background:#0c1727;border:1px solid #2c4058;border-radius:12px;margin:0 0 10px;overflow:hidden}
+details.line summary{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;list-style:none}
+details.line summary::-webkit-details-marker{display:none}
+details.line summary .t{min-width:0;flex:1}
+details.line summary .t b{display:block;font-size:15px}
+details.line summary small{color:var(--muted)}
+details.line summary::after{content:"▾";color:var(--muted)}
+details.line[open] summary::after{content:"▴"}
+.stoplist{margin:0;padding:6px 14px 14px 52px;list-style:none;border-top:1px solid var(--line)}
+.stoplist li{position:relative;padding:5px 0;color:#dbe6f5;font-size:14px}
+.stoplist li::before{content:"";position:absolute;left:-18px;top:13px;width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.stoplist li.term{font-weight:800;color:var(--text)}
+.stoplist li.term::before{background:var(--accent)}
+.stoplist small{color:var(--muted);margin-left:6px}
+/* Titres & amendes */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:0 0 16px}
+.panel h2{margin:0 0 4px;font-size:20px}
+.panel .sub{color:var(--muted);margin:0 0 14px;font-size:13px}
+table.tarifs{width:100%;border-collapse:collapse}
+table.tarifs th,table.tarifs td{text-align:left;padding:11px 10px;border-top:1px solid var(--line);vertical-align:top}
+table.tarifs th{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);border-top:0}
+table.tarifs td.prix{white-space:nowrap;font-weight:850;font-variant-numeric:tabular-nums;text-align:right}
+table.tarifs th.prix{text-align:right}
+.accent-viabus{border-left:4px solid #4f8cff}
+.accent-transcab{border-left:4px solid #f4b400}
+.footer{border-top:1px solid #26354a;padding:20px 0 30px;color:var(--muted);font-size:12px}
+.loading{display:inline-block;width:14px;height:14px;border:2px solid #708198;border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;vertical-align:-2px;margin-right:7px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:700px){
+ .tripgrid{grid-template-columns:1fr}.swap{width:100%;height:42px}
+ .tripgrid2{grid-template-columns:1fr 1fr}.go{grid-column:1/-1}
+}
+@media(max-width:560px){
+ .logo{width:120px}.brand small{display:none}.brand b{font-size:17px}
+ .hero{padding-top:26px}.searchbox{padding:13px}
+ .searchrow{align-items:stretch;flex-direction:column}.searchrow input{width:100%}
+ .stophead{align-items:flex-start;flex-direction:column}.time{padding:7px 8px}
+ .linegrid{grid-template-columns:1fr}
+ table.tarifs th,table.tarifs td{padding:9px 6px;font-size:14px}
+}
 </style></head><body>
-<header class="top"><div class="wrap brand"><img class="logo" src="logo.png" alt="LogiRide — Made by LogiSync"><div><b>Portail voyageurs</b><small>Consultez les horaires théoriques des réseaux de Val-sur-Rive Mobilités.</small></div></div></header>
-<main class="wrap"><section class="hero"><div class="eyebrow">Portail voyageurs</div><h1>Préparez votre trajet.</h1><p>Recherchez un arrêt pour découvrir les lignes qui le desservent et les horaires théoriques des prochains passages, sur les deux réseaux.</p></section>
-<section class="searchbox"><div class="searchrow"><input id="q" type="search" placeholder="Rechercher un arrêt (ex. Gare SNCF)" autocomplete="off" aria-label="Rechercher un arrêt"><button id="refresh" type="button" style="background:var(--accent);color:#101827;border:0;border-radius:10px;padding:0 17px;font-weight:850">Actualiser</button><button id="clear" type="button" style="background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:0 13px">Effacer</button></div><div class="filters"><select id="network"><option value="all">Tous les réseaux</option><option value="ViaBus">ViaBus</option><option value="Trans'Cab">Trans'Cab</option></select><select id="day"><option value="today">Aujourd'hui</option><option value="tomorrow">Demain</option><option value="7">7 prochains jours</option><option value="14">14 prochains jours</option></select></div><p class="hint">Horaires théoriques calculés à partir des services planifiés. Les horaires peuvent évoluer selon les modifications du planning.</p></section>
-<section class="results"><p id="status" class="status"><span class="loading"></span>Chargement des horaires…</p><div id="out"></div></section></main><footer class="footer"><div class="wrap">LogiRide Voyageurs · Informations horaires théoriques · © LogiSync</div></footer>
+<header class="top"><div class="wrap brand">
+ <a class="brand-link" href="#accueil"><img class="logo" src="logo.png" alt="LogiRide — Made by LogiSync"><div><b>Portail voyageurs</b><small>Consultez les horaires théoriques des réseaux de Val-sur-Rive Mobilités.</small></div></a>
+ <button id="burger" class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+ <nav id="menu" class="menu" hidden aria-label="Menu principal">
+  <a href="#accueil" data-v="accueil">🏠 Synthèse du réseau</a>
+  <a href="#itineraires" data-v="itineraires">🧭 Itinéraires</a>
+  <a href="#lignes" data-v="lignes">🚌 Lignes du réseau</a>
+  <div class="sep">Titres &amp; amendes</div>
+  <a href="#titres-viabus" data-v="titres-viabus">🎫 Titres &amp; amendes ViaBus</a>
+  <a href="#titres-transcab" data-v="titres-transcab">🎫 Titres &amp; amendes Trans'Cab</a>
+ </nav>
+</div></header>
+
+<main class="wrap">
+
+<!-- ============ ACCUEIL : synthèse du réseau ============ -->
+<section id="v-accueil" class="view">
+ <div class="hero"><div class="eyebrow">Portail voyageurs</div><h1>Préparez votre trajet.</h1><p>Retrouvez en un coup d'œil les lignes en circulation sur les deux réseaux, ou recherchez un arrêt pour connaître les horaires théoriques des prochains passages.</p></div>
+ <div class="searchbox"><div class="searchrow"><input id="q" type="search" placeholder="Rechercher un arrêt (ex. Gare SNCF)" autocomplete="off" aria-label="Rechercher un arrêt"><button id="refresh" type="button" style="background:var(--accent);color:#101827;border:0;border-radius:10px;padding:0 17px;font-weight:850">Actualiser</button><button id="clear" type="button" style="background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:0 13px">Effacer</button></div>
+ <div class="filters"><select id="network" aria-label="Réseau"><option value="all">Tous les réseaux</option><option value="ViaBus">ViaBus</option><option value="Trans'Cab">Trans'Cab</option></select><select id="day" aria-label="Période"><option value="today">Aujourd'hui</option><option value="tomorrow">Demain</option><option value="7">7 prochains jours</option><option value="14">14 prochains jours</option></select></div>
+ <p class="hint">Horaires théoriques calculés à partir des services planifiés. Les horaires peuvent évoluer selon les modifications du planning.</p></div>
+ <section class="results"><p id="status" class="status"><span class="loading"></span>Chargement des horaires…</p><div id="out"></div></section>
+</section>
+
+<!-- ============ ITINÉRAIRES ============ -->
+<section id="v-itineraires" class="view" hidden>
+ <div class="hero small"><div class="eyebrow">Itinéraires</div><h1>Où allez-vous ?</h1><p>Indiquez un arrêt de départ et un arrêt d'arrivée : le portail cherche les trajets directs ou avec une correspondance, sur les deux réseaux.</p></div>
+ <form id="tripform" class="searchbox" autocomplete="off">
+  <div class="tripgrid">
+   <div class="field"><label for="tf">Départ</label><input id="tf" list="stoplist" placeholder="Arrêt de départ" required></div>
+   <button id="swap" class="swap" type="button" aria-label="Inverser départ et arrivée" title="Inverser">⇄</button>
+   <div class="field"><label for="tt">Arrivée</label><input id="tt" list="stoplist" placeholder="Arrêt d'arrivée" required></div>
+  </div>
+  <div class="tripgrid2">
+   <div class="field"><label for="td">Date</label><input id="td" type="date" required></div>
+   <div class="field"><label for="th">Heure de départ</label><input id="th" type="time" required></div>
+   <div class="field"><label for="tn">Réseau</label><select id="tn"><option value="all">Tous les réseaux</option><option value="ViaBus">ViaBus</option><option value="Trans'Cab">Trans'Cab</option></select></div>
+   <button class="go" type="submit">Rechercher</button>
+  </div>
+  <datalist id="stoplist"></datalist>
+  <p id="tripmsg" class="err" role="alert" hidden></p>
+  <p class="hint">Résultats théoriques : départs dans les 6 heures suivant l'heure choisie, avec au plus une correspondance (3 minutes minimum).</p>
+ </form>
+ <section class="results"><div id="tripout"></div></section>
+</section>
+
+<!-- ============ LIGNES DU RÉSEAU ============ -->
+<section id="v-lignes" class="view" hidden>
+ <div class="hero small"><div class="eyebrow">Lignes du réseau</div><h1>Toutes les lignes.</h1><p>Retrouvez les lignes de chaque réseau et leurs terminus. Touchez une ligne pour afficher la liste de ses arrêts.</p></div>
+ <section class="results"><div id="lignesout"><p class="status"><span class="loading"></span>Chargement des lignes…</p></div></section>
+</section>
+
+<!-- ============ TITRES & AMENDES VIABUS ============ -->
+<!-- MODIFIER ICI : change les noms, descriptions et prix directement dans les tableaux ci-dessous. -->
+<section id="v-titres-viabus" class="view" hidden>
+ <div class="hero small"><div class="eyebrow">ViaBus</div><h1>Titres &amp; amendes ViaBus</h1><p>Retrouvez les titres de transport valables sur le réseau ViaBus et le montant des amendes.</p></div>
+ <div class="panel accent-viabus">
+  <h2>Titres de transport</h2><p class="sub">Tarifs en vigueur sur le réseau ViaBus.</p>
+  <table class="tarifs"><thead><tr><th>Titre</th><th>Description</th><th class="prix">Tarif</th></tr></thead><tbody>
+   <!-- Une ligne par titre : copie / colle un bloc <tr>…</tr> pour en ajouter -->
+   <tr><td><b>Ticket unitaire</b></td><td>Description à compléter (durée de validité, correspondances…)</td><td class="prix">À compléter</td></tr>
+   <tr><td><b>Carnet de 10 voyages</b></td><td>Description à compléter</td><td class="prix">À compléter</td></tr>
+   <tr><td><b>Abonnement mensuel</b></td><td>Description à compléter</td><td class="prix">À compléter</td></tr>
+  </tbody></table>
+ </div>
+ <div class="panel accent-viabus">
+  <h2>Amendes</h2><p class="sub">Montants applicables en cas d'infraction sur le réseau ViaBus.</p>
+  <table class="tarifs"><thead><tr><th>Infraction</th><th>Précisions</th><th class="prix">Montant</th></tr></thead><tbody>
+   <tr><td><b>Défaut de titre de transport</b></td><td>Précisions à compléter</td><td class="prix">À compléter</td></tr>
+   <tr><td><b>Titre non validé</b></td><td>Précisions à compléter</td><td class="prix">À compléter</td></tr>
+   <tr><td><b>Autre infraction</b></td><td>Précisions à compléter</td><td class="prix">À compléter</td></tr>
+  </tbody></table>
+ </div>
+</section>
+
+<!-- ============ TITRES & AMENDES TRANS'CAB ============ -->
+<!-- MODIFIER ICI : change les noms, descriptions et prix directement dans les tableaux ci-dessous. -->
+<section id="v-titres-transcab" class="view" hidden>
+ <div class="hero small"><div class="eyebrow">Trans'Cab</div><h1>Titres &amp; amendes Trans'Cab</h1><p>Retrouvez les titres de transport valables sur le réseau Trans'Cab et le montant des amendes.</p></div>
+ <div class="panel accent-transcab">
+  <h2>Titres de transport</h2><p class="sub">Tarifs en vigueur sur le réseau Trans'Cab.</p>
+  <table class="tarifs"><thead><tr><th>Titre</th><th>Description</th><th class="prix">Tarif</th></tr></thead><tbody>
+   <tr><td><b>Ticket unitaire</b></td><td>Description à compléter (durée de validité, correspondances…)</td><td class="prix">À compléter</td></tr>
+   <tr><td><b>Carnet de 10 voyages</b></td><td>Description à compléter</td><td class="prix">À compléter</td></tr>
+   <tr><td><b>Abonnement mensuel</b></td><td>Description à compléter</td><td class="prix">À compléter</td></tr>
+  </tbody></table>
+ </div>
+ <div class="panel accent-transcab">
+  <h2>Amendes</h2><p class="sub">Montants applicables en cas d'infraction sur le réseau Trans'Cab.</p>
+  <table class="tarifs"><thead><tr><th>Infraction</th><th>Précisions</th><th class="prix">Montant</th></tr></thead><tbody>
+   <tr><td><b>Défaut de titre de transport</b></td><td>Précisions à compléter</td><td class="prix">À compléter</td></tr>
+   <tr><td><b>Titre non validé</b></td><td>Précisions à compléter</td><td class="prix">À compléter</td></tr>
+   <tr><td><b>Autre infraction</b></td><td>Précisions à compléter</td><td class="prix">À compléter</td></tr>
+  </tbody></table>
+ </div>
+</section>
+
+</main>
+<footer class="footer"><div class="wrap">LogiRide Voyageurs · Informations horaires théoriques · © LogiSync</div></footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 const CFG={
  "Trans'Cab":{url:'https://joubhbfkankatgybkixq.supabase.co',key:'sb_publishable_obT3TbD0d81BWWxGOlOmXw_h_ZUhLY9',network:"Trans'Cab"},
  "ViaBus":{url:'https://wlsvimeqnlacazmdzypx.supabase.co',key:'sb_publishable_GWhUM6Oz1UxECAz1LH7h2A_xhawfqSh',network:"ViaBus"}
 };
 const clients=Object.fromEntries(Object.entries(CFG).map(([k,v])=>[k,supabase.createClient(v.url,v.key,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}})]));
-const $=id=>document.getElementById(id);let datasets=[],errorCount=0,lastLoad=0;
+const $=id=>document.getElementById(id);let datasets=[],errorCount=0,lastLoad=0,tripCache={key:'',trips:null};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const mins=t=>{const a=String(t||'00:00').slice(0,5).split(':').map(Number);return a[0]*60+a[1]};
 const duration=s=>(mins(s.end_time)-mins(s.start_time)+1440)%1440;
 const fmt=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
-const addDays=(d,n)=>{const x=new Date(d+'T12:00:00');x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)};
-const today=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)};
+const addDays=(d,n)=>{const x=new Date(d+'T12:00:00');x.setDate(x.getDate()+n);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const daysBetween=(a,b)=>Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/864e5);
 const dateLabel=d=>new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+const clean=n=>String(n||'').replace(/\s*\(.*?\)\s*/g,' ').replace(/\s+/g,' ').trim();
+const norm=n=>clean(n).toLocaleLowerCase('fr');
+const badge=l=>{const c=/^#[0-9a-f]{6}$/i.test(l.bg||'')?l.bg:'#64748b',f=/^#[0-9a-f]{6}$/i.test(l.fg||'')?l.fg:'#fff';return `<span class="linebadge" style="background:${c};color:${f}">${esc(l.code)}</span>`};
+
+/* ---------- Calcul des courses (inchangé) ---------- */
 function getLine(ds,code){return ds.lines.find(x=>x.code===code)||{code,bg:'#64748b',fg:'#fff',terminus_a:'Terminus A',terminus_b:'Terminus B'};}
 function routeInfo(ds,code){const l=getLine(ds,code),stops=ds.stops.filter(x=>x.line_code===code).sort((a,b)=>a.pos-b.pos);const seg=stops.map(x=>Number(x.travel_min)),last=Number(l.terminal_travel_min);const complete=Number.isFinite(last)&&last>0&&seg.length===stops.length&&seg.every(x=>Number.isFinite(x)&&x>0);return{l,stops,segs:complete?[...seg,last]:null,complete};}
 function tripsFor(ds,s){const r=routeInfo(ds,s.line_code),l=r.l,ta=l.terminus_a||'Terminus A',tb=l.terminus_b||'Terminus B',pts=[ta,...r.stops.map(x=>x.name),tb];const fallback=Number(l.course_min)>0?Number(l.course_min):10;const cd=r.complete?r.segs.reduce((a,b)=>a+b,0):fallback;const bt=Number(l.repos_min)>=0?Number(l.repos_min):5;const total=duration(s),available=total-2-3-5;const n=Math.max(1,Math.floor((available+bt)/(cd+bt)));const extra=Math.max(0,available-(n*cd+(n-1)*bt));let t=mins(s.start_time)+5;const out=[];
  for(let i=1;i<=n;i++){const sens=i%2?'A':'R',route=sens==='A'?pts:[...pts].reverse();let seg=r.complete?[...r.segs]:Array.from({length:pts.length-1},()=>fallback/Math.max(1,pts.length-1));if(sens==='R')seg=[...seg].reverse();const points=[{name:route[0],t:Math.round(t)}];for(let j=0;j<seg.length;j++){t+=seg[j];points.push({name:route[j+1],t:Math.round(t)});}out.push({sens,from:route[0],to:route[route.length-1],points,serviceDay:s.day});if(i<n)t+=bt;}
- // extra battement occurs after the final course; it does not alter passenger passage times.
  return out;
 }
-async function load(){ $('status').innerHTML='<span class="loading"></span>Chargement des deux réseaux…';$('out').innerHTML='';errorCount=0;const from=today(),to=addDays(from,14);
+
+/* ---------- Chargement des deux réseaux ---------- */
+async function load(){
+ if(!$('q').value.trim())$('status').innerHTML='<span class="loading"></span>Chargement des deux réseaux…';
+ errorCount=0;const from=addDays(today(),-1),to=addDays(today(),14);
  const jobs=Object.entries(CFG).map(async([network,cfg])=>{const{data,error}=await clients[network].rpc('lr_public_timetable',{p_from:from,p_to:to});if(error)throw new Error(network+' : '+error.message);const d=data||{};return{network,lines:d.lines||[],stops:d.stops||[],services:d.services||[]};});
- const settled=await Promise.allSettled(jobs);datasets=settled.filter(x=>x.status==='fulfilled').map(x=>x.value);errorCount=settled.filter(x=>x.status==='rejected').length;lastLoad=Date.now();render();
+ const settled=await Promise.allSettled(jobs);datasets=settled.filter(x=>x.status==='fulfilled').map(x=>x.value);errorCount=settled.filter(x=>x.status==='rejected').length;lastLoad=Date.now();tripCache={key:'',trips:null};
+ renderHome();renderLines();fillStopList();
 }
-function render(){const q=$('q').value.trim().toLocaleLowerCase('fr'),network=$('network').value,day=$('day').value,now=new Date(),base=today(),range=day==='today'?1:day==='tomorrow'?2:Number(day);let hits=[];
+
+/* ---------- Accueil : synthèse du réseau / recherche d'arrêt ---------- */
+const span=s=>{const a=new Date(s.day+'T'+String(s.start_time).slice(0,5)+':00'),b=new Date(s.day+'T'+String(s.end_time).slice(0,5)+':00');if(b<=a)b.setDate(b.getDate()+1);return{a,b}};
+function renderHome(){
+ const q=$('q').value.trim();
+ if(q.length>=2)renderStops(q);else renderSynthese();
+}
+function renderSynthese(){
+ const network=$('network').value,day=$('day').value,now=new Date(),base=today();
+ const fromDay=day==='tomorrow'?addDays(base,1):base,toDay=day==='today'?addDays(base,1):day==='tomorrow'?addDays(base,2):addDays(base,Number(day));
+ const dayStart=new Date(fromDay+'T00:00:00');
+ const periodLabel=day==='today'?"aujourd'hui":day==='tomorrow'?'demain':'sur les '+day+' prochains jours';
+ let html='',total=0;
+ for(const net of Object.keys(CFG)){
+  if(network!=='all'&&network!==net)continue;
+  const ds=datasets.find(d=>d.network===net);
+  if(!ds){html+=`<article class="netcard"><div class="nethead"><div><h2>${esc(net)}</h2><small>Réseau momentanément indisponible</small></div></div></article>`;continue}
+  const run=[],idle=[];
+  for(const l of [...ds.lines].sort((a,b)=>String(a.code).localeCompare(String(b.code),'fr',{numeric:true}))){
+   const list=ds.services.filter(s=>s.line_code===l.code&&((s.day>=fromDay&&s.day<toDay)||(s.day===addDays(fromDay,-1)&&span(s).b>dayStart)));
+   if(!list.length){idle.push(l);continue}
+   let chip='';
+   if(fromDay===base&&day!=='7'&&day!=='14'||day==='today'){
+    const live=list.some(s=>{const x=span(s);return x.a<=now&&now<x.b});
+    const next=list.map(s=>span(s).a).filter(a=>a>now).sort((a,b)=>a-b)[0];
+    chip=live?'<span class="chip live">● En circulation</span>':next?`<span class="chip next">Prochain service ${fmt(next.getHours()*60+next.getMinutes())}</span>`:'<span class="chip">Services terminés</span>';
+   }else chip=`<span class="chip next">${list.length} service${list.length>1?'s':''}</span>`;
+   run.push({l,chip});
+  }
+  total+=run.length;
+  html+=`<article class="netcard"><div class="nethead"><div><h2>${esc(net)}</h2><small>${run.length} ligne${run.length>1?'s':''} en circulation ${periodLabel} sur ${ds.lines.length}</small></div></div>`+
+   (run.length?`<div class="linegrid">${run.map(({l,chip})=>`<a class="lcard" href="#lignes">${badge(l)}<div class="t"><b>${esc(l.terminus_a||'Terminus A')} ↔ ${esc(l.terminus_b||'Terminus B')}</b>${chip}</div></a>`).join('')}</div>`:'<div class="netfoot" style="padding-top:14px">Aucune ligne en circulation sur cette période.</div>')+
+   (idle.length?`<div class="netfoot">Pas de service ${periodLabel} : ${idle.map(l=>esc(l.code)).join(', ')}</div>`:'')+`</article>`;
+ }
+ $('status').textContent=(errorCount?`Attention : ${errorCount} réseau(x) n'ont pas pu être chargés. `:'')+(lastLoad?`${total} ligne(s) en circulation · actualisé à ${new Date(lastLoad).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`:'Chargement…');
+ $('out').innerHTML=html||`<div class="empty">${errorCount===2?'Impossible de récupérer les horaires. Vérifiez que les fonctions publiques ont été installées dans les deux bases Supabase.':'Aucune donnée à afficher.'}</div>`;
+}
+function renderStops(q){
+ q=q.toLocaleLowerCase('fr');
+ const network=$('network').value,day=$('day').value,now=new Date(),base=today();
+ const fromDay=day==='tomorrow'?addDays(base,1):base,toDay=day==='today'?addDays(base,1):day==='tomorrow'?addDays(base,2):addDays(base,Number(day));
+ let hits=[];
  for(const ds of datasets){if(network!=='all'&&network!==ds.network)continue;const lineMap=new Map(ds.lines.map(l=>[l.code,l]));const stops=[...ds.stops,...ds.lines.flatMap(l=>[{line_code:l.code,name:l.terminus_a,pos:-1},{line_code:l.code,name:l.terminus_b,pos:999999}].filter(x=>x.name))];
-  for(const st of stops){if(q&&!st.name.toLocaleLowerCase('fr').includes(q))continue;const line=lineMap.get(st.line_code);if(!line)continue;let entries=[];
-   for(const s of ds.services){if(s.line_code!==st.line_code||s.day<base||s.day>=addDays(base,range))continue;for(const trip of tripsFor(ds,s)){const point=trip.points.find(p=>p.name===st.name);if(!point)continue;const dt=new Date(s.day+'T00:00:00');dt.setMinutes(point.t);const isoDay=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');if(isoDay<base||isoDay>=addDays(base,range))continue;if(isoDay===base&&dt<now)continue;entries.push({date:isoDay,time:fmt(point.t),sens:trip.sens,dest:trip.to,network:ds.network});}}
+  for(const st of stops){if(!st.name.toLocaleLowerCase('fr').includes(q))continue;const line=lineMap.get(st.line_code);if(!line)continue;let entries=[];
+   for(const s of ds.services){if(s.line_code!==st.line_code||s.day<addDays(fromDay,-1)||s.day>=toDay)continue;for(const trip of tripsFor(ds,s)){const point=trip.points.find(p=>p.name===st.name);if(!point)continue;const dt=new Date(s.day+'T00:00:00');dt.setMinutes(point.t);const isoDay=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');if(isoDay<fromDay||isoDay>=toDay)continue;if(isoDay===base&&dt<now)continue;entries.push({date:isoDay,time:fmt(point.t),sens:trip.sens,dest:trip.to,network:ds.network});}}
    if(entries.length)hits.push({name:st.name,network:ds.network,line,code:st.line_code,entries});
   }
  }
- // Group same named stop across both networks.
  const groups=new Map();for(const h of hits){const key=h.name.toLocaleLowerCase('fr');if(!groups.has(key))groups.set(key,{name:h.name,items:[]});groups.get(key).items.push(h)}
- let html='';let count=0;for(const g of [...groups.values()].sort((a,b)=>a.name.localeCompare(b.name,'fr'))){count++;const items=g.items.sort((a,b)=>a.network.localeCompare(b.network)||a.code.localeCompare(b.code));html+=`<article class="stopgroup"><div class="stophead"><div><h2>${esc(g.name)}</h2><small>${items.length} ligne${items.length>1?'s':''} desservant cet arrêt</small></div><div class="networks">${[...new Set(items.map(x=>x.network))].map(n=>`<span class="pill">${esc(n)}</span>`).join('')}</div></div>`;
- for(const item of items){const l=item.line;const color=/^#[0-9a-f]{6}$/i.test(l.bg||'')?l.bg:'#64748b',fg=/^#[0-9a-f]{6}$/i.test(l.fg||'')?l.fg:'#fff';const dirs=[['A',l.terminus_b||'Terminus B'],['R',l.terminus_a||'Terminus A']];html+=`<div class="lineblock"><div class="linehead"><span class="linebadge" style="background:${color};color:${fg}">${esc(item.code)}</span><b>${esc(item.network)}</b><span class="pill">${esc(l.terminus_a||'Terminus A')} ↔ ${esc(l.terminus_b||'Terminus B')}</span></div>`;
- for(const [sens,label] of dirs){const rows=item.entries.filter(x=>x.sens===sens).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));if(!rows.length)continue;let current='';for(const e of rows){if(e.date!==current){current=e.date;html+=`<div class="direction">${esc(dateLabel(e.date))} · Direction ${esc(label)}</div><div class="times">`; }html+=`<span class="time ${e.date===base&&e.time===fmt(now.getHours()*60+now.getMinutes())?'next':''}">${esc(e.time)}</span>`;const idx=rows.indexOf(e);if(idx===rows.length-1||rows[idx+1].date!==e.date)html+='</div>';}}
- html+='</div>';}
- html+='</article>';}
+ let html='',count=0;
+ for(const g of [...groups.values()].sort((a,b)=>a.name.localeCompare(b.name,'fr'))){count++;const items=g.items.sort((a,b)=>a.network.localeCompare(b.network)||a.code.localeCompare(b.code));
+  html+=`<article class="stopgroup"><div class="stophead"><div><h2>${esc(g.name)}</h2><small>${items.length} ligne${items.length>1?'s':''} desservant cet arrêt</small></div><div class="networks">${[...new Set(items.map(x=>x.network))].map(n=>`<span class="pill">${esc(n)}</span>`).join('')}</div></div>`;
+  for(const item of items){const l=item.line;const dirs=[['A',l.terminus_b||'Terminus B'],['R',l.terminus_a||'Terminus A']];
+   html+=`<div class="lineblock"><div class="linehead">${badge(l)}<b>${esc(item.network)}</b><span class="pill">${esc(l.terminus_a||'Terminus A')} ↔ ${esc(l.terminus_b||'Terminus B')}</span></div>`;
+   for(const [sens,label] of dirs){const rows=item.entries.filter(x=>x.sens===sens).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));if(!rows.length)continue;let current='';
+    rows.forEach((e,idx)=>{if(e.date!==current){current=e.date;html+=`<div class="direction">${esc(dateLabel(e.date))} · Direction ${esc(label)}</div><div class="times">`}
+     html+=`<span class="time ${e.date===base&&idx===0?'next':''}">${esc(e.time)}</span>`;
+     if(idx===rows.length-1||rows[idx+1].date!==e.date)html+='</div>'});}
+   html+='</div>';}
+  html+='</article>';}
  $('status').textContent=(errorCount?`Attention : ${errorCount} réseau(x) n'ont pas pu être chargés. `:'')+`${count} arrêt(s) avec des passages prévus · actualisé à ${new Date(lastLoad).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`;
- $('out').innerHTML=html||`<div class="empty">${errorCount===2?'Impossible de récupérer les horaires. Vérifiez que les fonctions publiques ont été installées dans les deux bases Supabase.':q?'Aucun passage trouvé pour cette recherche.':'Aucun passage prévu sur la période sélectionnée.'}</div>`;
+ $('out').innerHTML=html||`<div class="empty">${errorCount===2?'Impossible de récupérer les horaires.':'Aucun passage trouvé pour cette recherche.'}</div>`;
 }
-$('q').addEventListener('input',render);$('network').addEventListener('change',render);$('day').addEventListener('change',render);$('refresh').addEventListener('click',load);$('clear').addEventListener('click',()=>{$('q').value='';render()});load();setInterval(load,60000);
+
+/* ---------- Lignes du réseau ---------- */
+function renderLines(){
+ let html='';
+ for(const net of Object.keys(CFG)){
+  const ds=datasets.find(d=>d.network===net);
+  html+=`<article class="netcard"><div class="nethead"><div><h2>${esc(net)}</h2><small>${ds?ds.lines.length+' ligne'+(ds.lines.length>1?'s':''):'Réseau momentanément indisponible'}</small></div></div>`;
+  if(ds){html+='<div style="padding:14px 17px">';
+   for(const l of [...ds.lines].sort((a,b)=>String(a.code).localeCompare(String(b.code),'fr',{numeric:true}))){
+    const r=routeInfo(ds,l.code),ta=l.terminus_a||'Terminus A',tb=l.terminus_b||'Terminus B';
+    html+=`<details class="line"><summary>${badge(l)}<div class="t"><b>${esc(ta)} ↔ ${esc(tb)}</b><small>${r.stops.length+2} arrêts</small></div></summary><ul class="stoplist"><li class="term">${esc(ta)}</li>${r.stops.map(x=>`<li>${esc(x.name)}${Number(x.travel_min)>0?`<small>+${Number(x.travel_min)} min</small>`:''}</li>`).join('')}<li class="term">${esc(tb)}${r.complete?`<small>+${Number(l.terminal_travel_min)} min</small>`:''}</li></ul></details>`;
+   }
+   html+='</div>';}
+  html+='</article>';
+ }
+ $('lignesout').innerHTML=html;
+}
+
+/* ---------- Itinéraires ---------- */
+function fillStopList(){
+ const names=new Map();
+ for(const ds of datasets){for(const l of ds.lines){[l.terminus_a,l.terminus_b].forEach(n=>{if(n)names.set(norm(n),clean(n))})}for(const s of ds.stops)names.set(norm(s.name),clean(s.name))}
+ $('stoplist').innerHTML=[...names.values()].sort((a,b)=>a.localeCompare(b,'fr')).map(n=>`<option value="${esc(n)}"></option>`).join('');
+}
+function buildTrips(dateStr){
+ const key=dateStr+'|'+lastLoad;if(tripCache.key===key)return tripCache.trips;
+ const trips=[];
+ for(const ds of datasets)for(const s of ds.services){
+  const di=daysBetween(dateStr,s.day);if(di<-1||di>1)continue;
+  for(const tr of tripsFor(ds,s))trips.push({network:ds.network,line:getLine(ds,s.line_code),code:s.line_code,to:tr.to,pts:tr.points.map(p=>({n:norm(p.name),name:clean(p.name),t:di*1440+p.t}))});
+ }
+ tripCache={key,trips};return trips;
+}
+function bsearch(list,t){let lo=0,hi=list.length;while(lo<hi){const m=(lo+hi)>>1;if(list[m].t<t)lo=m+1;else hi=m}return lo}
+function journeys(trips,fromN,toN,T0){
+ const idx=new Map();
+ for(const tr of trips)tr.pts.forEach((p,i)=>{let a=idx.get(p.n);if(!a)idx.set(p.n,a=[]);a.push({tr,i,t:p.t})});
+ idx.forEach(a=>a.sort((x,y)=>x.t-y.t));
+ const res=[];
+ for(const d of idx.get(fromN)||[]){
+  if(d.t<T0)continue;if(d.t>T0+360)break;
+  const tr=d.tr,i=d.i,pts=tr.pts;
+  let jd=-1;for(let k=i+1;k<pts.length;k++)if(pts[k].n===toN){jd=k;break}
+  if(jd>0){res.push({legs:[{tr,i,j:jd}],dep:d.t,arr:pts[jd].t});continue}
+  let best=null;
+  for(let k=i+1;k<pts.length;k++){
+   const X=pts[k];if(X.n===fromN||X.n===toN)continue;
+   const list=idx.get(X.n)||[];
+   for(let m=bsearch(list,X.t+3);m<list.length;m++){
+    const e=list[m];if(e.t-X.t>60)break;
+    const t2=e.tr;if(t2.network===tr.network&&t2.code===tr.code)continue;
+    let j2=-1;for(let q=e.i+1;q<t2.pts.length;q++)if(t2.pts[q].n===toN){j2=q;break}
+    if(j2>0){const arr=t2.pts[j2].t;if(!best||arr<best.arr)best={legs:[{tr,i,j:k},{tr:t2,i:e.i,j:j2}],dep:d.t,arr};break}
+   }
+  }
+  if(best)res.push(best);
+ }
+ res.sort((a,b)=>a.dep-b.dep||a.arr-b.arr);
+ const keep=[];let bestArr=Infinity;
+ for(let k=res.length-1;k>=0;k--)if(res[k].arr<bestArr){keep.unshift(res[k]);bestArr=res[k].arr}
+ return keep.slice(0,6);
+}
+const ftx=t=>fmt(t)+(t>=1440?' (+1 j)':'');
+function tripHtml(r){
+ const dur=r.arr-r.dep,h=Math.floor(dur/60),m=dur%60,nb=r.legs.length-1;
+ let html=`<article class="trip"><div class="triphead"><b>${ftx(r.dep)} → ${ftx(r.arr)}</b><span>${h?h+' h ':''}${m} min</span><span class="pill">${nb?'1 correspondance':'Direct'}</span></div>`;
+ r.legs.forEach((lg,n)=>{
+  const p=lg.tr.pts;
+  if(n>0){const wait=p[lg.i].t-r.legs[n-1].tr.pts[r.legs[n-1].j].t;html+=`<div class="xfer">Correspondance à ${esc(p[lg.i].name)} · ${wait} min d'attente</div>`}
+  html+=`<div class="leg">${badge(lg.tr.line)}<div><b>Direction ${esc(clean(lg.tr.to))}</b> <small>· ${esc(lg.tr.network)}</small><br><small>${fmt(p[lg.i].t)} · Montée à ${esc(p[lg.i].name)}<br>${fmt(p[lg.j].t)} · Descente à ${esc(p[lg.j].name)} · ${lg.j-lg.i} arrêt${lg.j-lg.i>1?'s':''}</small></div></div>`;
+ });
+ return html+'</article>';
+}
+function initTrip(){
+ if(!$('td').value){const t=today();$('td').value=t;$('td').min=t;$('td').max=addDays(t,13)}
+ if(!$('th').value){const n=new Date();$('th').value=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')}
+}
+$('tripform').addEventListener('submit',e=>{
+ e.preventDefault();
+ const msg=$('tripmsg'),out=$('tripout');msg.hidden=true;
+ const fromN=norm($('tf').value),toN=norm($('tt').value),net=$('tn').value;
+ if(!datasets.length){msg.textContent="Les horaires ne sont pas encore chargés. Réessayez dans un instant.";msg.hidden=false;return}
+ const known=new Set([...$('stoplist').options].map(o=>norm(o.value)));
+ if(!known.has(fromN)||!known.has(toN)){msg.textContent="Choisissez un arrêt de départ et d'arrivée dans la liste proposée.";msg.hidden=false;return}
+ if(fromN===toN){msg.textContent="Le départ et l'arrivée sont identiques.";msg.hidden=false;return}
+ const [hh,mm]=$('th').value.split(':').map(Number),T0=hh*60+mm;
+ const trips=buildTrips($('td').value).filter(t=>net==='all'||t.network===net);
+ const found=journeys(trips,fromN,toN,T0);
+ out.innerHTML=found.length?`<p class="status">${found.length} itinéraire${found.length>1?'s':''} · ${esc(dateLabel($('td').value))}</p>`+found.map(tripHtml).join(''):`<div class="empty">Aucun itinéraire trouvé dans les 6 heures suivant ${esc($('th').value)}, avec au plus une correspondance. Essayez un autre horaire ou un autre arrêt.</div>`;
+});
+$('swap').addEventListener('click',()=>{const a=$('tf').value;$('tf').value=$('tt').value;$('tt').value=a});
+
+/* ---------- Menu hamburger et navigation ---------- */
+const VIEWS=['accueil','itineraires','lignes','titres-viabus','titres-transcab'];
+function setMenu(open){$('menu').hidden=!open;$('burger').setAttribute('aria-expanded',open);$('burger').setAttribute('aria-label',open?'Fermer le menu':'Ouvrir le menu')}
+$('burger').addEventListener('click',e=>{e.stopPropagation();setMenu($('menu').hidden)});
+document.addEventListener('click',e=>{if(!e.target.closest('#menu'))setMenu(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){setMenu(false);$('burger').focus()}});
+function route(){
+ let h=(location.hash||'#accueil').slice(1);if(!VIEWS.includes(h))h='accueil';
+ VIEWS.forEach(v=>$('v-'+v).hidden=v!==h);
+ document.querySelectorAll('#menu a').forEach(a=>a.classList.toggle('on',a.dataset.v===h));
+ setMenu(false);window.scrollTo(0,0);
+ if(h==='itineraires')initTrip();
+}
+window.addEventListener('hashchange',route);
+$('q').addEventListener('input',renderHome);$('network').addEventListener('change',renderHome);$('day').addEventListener('change',renderHome);$('refresh').addEventListener('click',load);$('clear').addEventListener('click',()=>{$('q').value='';renderHome()});
+route();load();setInterval(load,60000);
 </script></body></html>
