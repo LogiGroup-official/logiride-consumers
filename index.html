@@ -234,7 +234,8 @@ table.tarifs th.prix{text-align:right}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 const CFG={
  "Trans'Cab":{url:'https://joubhbfkankatgybkixq.supabase.co',key:'sb_publishable_obT3TbD0d81BWWxGOlOmXw_h_ZUhLY9',network:"Trans'Cab"},
- "ViaBus":{url:'https://wlsvimeqnlacazmdzypx.supabase.co',key:'sb_publishable_GWhUM6Oz1UxECAz1LH7h2A_xhawfqSh',network:"ViaBus"}
+ "ViaBus":{url:'https://wlsvimeqnlacazmdzypx.supabase.co',key:'sb_publishable_GWhUM6Oz1UxECAz1LH7h2A_xhawfqSh',network:"ViaBus"},
+ "Brest Métropole":{url:'https://mdmcpegixrdgrwfoyinq.supabase.co',key:'sb_publishable_Zdkzd5oFaHWsirKm1qcNZA_-uMAwTR0',network:"Brest Métropole"}
 };
 const clients=Object.fromEntries(Object.entries(CFG).map(([k,v])=>[k,supabase.createClient(v.url,v.key,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}})]));
 const $=id=>document.getElementById(id);let datasets=[],errorCount=0,lastLoad=0,tripCache={key:'',trips:null};
@@ -258,9 +259,9 @@ function tripsFor(ds,s){const r=routeInfo(ds,s.line_code),l=r.l,ta=l.terminus_a|
  return out;
 }
 
-/* ---------- Chargement des deux réseaux ---------- */
+/* ---------- Chargement des trois réseaux ---------- */
 async function load(){
- if(!$('q').value.trim())$('status').innerHTML='<span class="loading"></span>Chargement des deux réseaux…';
+ if(!$('q').value.trim())$('status').innerHTML='<span class="loading"></span>Chargement des trois réseaux…';
  errorCount=0;const from=addDays(today(),-1),to=addDays(today(),14);
  const jobs=Object.entries(CFG).map(async([network,cfg])=>{const{data,error}=await clients[network].rpc('lr_public_timetable',{p_from:from,p_to:to});if(error)throw new Error(network+' : '+error.message);const d=data||{};return{network,lines:d.lines||[],stops:d.stops||[],services:d.services||[]};});
  const settled=await Promise.allSettled(jobs);datasets=settled.filter(x=>x.status==='fulfilled').map(x=>x.value);errorCount=settled.filter(x=>x.status==='rejected').length;lastLoad=Date.now();tripCache={key:'',trips:null};
