@@ -147,7 +147,7 @@ table.tarifs th.prix{text-align:right}
 <section id="v-accueil" class="view">
  <div class="hero"><div class="eyebrow">Portail voyageurs</div><h1>Préparez votre trajet.</h1><p>Retrouvez en un coup d'œil les lignes en circulation sur les deux réseaux, ou recherchez un arrêt pour connaître les horaires théoriques des prochains passages.</p></div>
  <div class="searchbox"><div class="searchrow"><input id="q" type="search" placeholder="Rechercher un arrêt (ex. Gare SNCF)" autocomplete="off" aria-label="Rechercher un arrêt"><button id="refresh" type="button" style="background:var(--accent);color:#101827;border:0;border-radius:10px;padding:0 17px;font-weight:850">Actualiser</button><button id="clear" type="button" style="background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:0 13px">Effacer</button></div>
- <div class="filters"><select id="network" aria-label="Réseau"><option value="all">Tous les réseaux</option><option value="ViaBus">ViaBus</option><option value="Trans'Cab">Trans'Cab</option></select><select id="day" aria-label="Période"><option value="today">Aujourd'hui</option><option value="tomorrow">Demain</option><option value="7">7 prochains jours</option><option value="14">14 prochains jours</option></select></div>
+ <div class="filters"><select id="network" aria-label="Réseau"><option value="all">Tous les réseaux</option><option value="ViaBus">ViaBus</option><option value="Trans'Cab">Trans'Cab</option><option value="Brest Métropole">Brest Métropole</option></select><select id="day" aria-label="Période"><option value="today">Aujourd'hui</option><option value="tomorrow">Demain</option><option value="7">7 prochains jours</option><option value="14">14 prochains jours</option></select></div>
  <p class="hint">Horaires théoriques calculés à partir des services planifiés. Les horaires peuvent évoluer selon les modifications du planning.</p></div>
  <section class="results"><p id="status" class="status"><span class="loading"></span>Chargement des horaires…</p><div id="out"></div></section>
 </section>
@@ -164,7 +164,7 @@ table.tarifs th.prix{text-align:right}
   <div class="tripgrid2">
    <div class="field"><label for="td">Date</label><input id="td" type="date" required></div>
    <div class="field"><label for="th">Heure de départ</label><input id="th" type="time" required></div>
-   <div class="field"><label for="tn">Réseau</label><select id="tn"><option value="all">Tous les réseaux</option><option value="ViaBus">ViaBus</option><option value="Trans'Cab">Trans'Cab</option></select></div>
+   <div class="field"><label for="tn">Réseau</label><select id="tn"><option value="all">Tous les réseaux</option><option value="ViaBus">ViaBus</option><option value="Trans'Cab">Trans'Cab</option><option value="Brest Métropole">Brest Métropole</option></select></div>
    <button class="go" type="submit">Rechercher</button>
   </div>
   <datalist id="stoplist"></datalist>
